@@ -34,20 +34,25 @@ public:
     Building();
     ~Building();
 
+    enum class Controls { Up, Down };
+
     static int elevatorMaxCapacity;
     static int personMaxPatience;
     static int numberOfFloors;
     static int numberOfPeople;
     static int getRandomFloor();
 
-    Floor *getFloor(int i);
-
 private:
     std::vector<std::thread> _threads;
-    std::vector<std::unique_ptr<Floor> > _floors;
-    std::vector<std::unique_ptr<Person> > _residents;
+    std::vector<Floor>  _floors;
+    std::vector<Person> _residents;
     Lift liftL;
     Lift liftR;
+
+public:
+    Floor &getFloor(int i) { return _floors.at(i); }
+    Lift  &leftLift  { return liftL; }
+    Lift  &rightLift { return liftR; }
 };
 
 #endif

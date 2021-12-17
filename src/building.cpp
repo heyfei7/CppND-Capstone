@@ -42,13 +42,13 @@ Building::Building():
 {
     for (int i = 0; i < numberOfFloors; i++)
     {
-        _floors.emplace_back(std::make_unique<Floor>(this, i + 1));
+        _floors.emplace_back(Floor(this, i + 1));
     }
     for (int i = 0; i < numberOfPeople; i++)
     {
-        _residents.emplace_back(std::make_unique<Person>());
-        auto lastPerson = _residents.end() - 1;
-        getFloor(lastPerson->getDestFloor())->addPerson(lastPerson->get());
+        _residents.emplace_back(Person());
+        Person &lastPerson = _residents.at(i);
+        getFloor(lastPerson.getDestFloor())->addPerson(&lastPerson);
     }
     liftL(this, getFloor(1));
     liftR(this, getFloor(1));

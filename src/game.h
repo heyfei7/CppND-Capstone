@@ -5,6 +5,7 @@
 #include "SDL.h"
 #include "controller.h"
 #include "renderer.h"
+#include "building.h"
 #include "snake.h"
 class Game {
  public:
@@ -15,6 +16,7 @@ class Game {
   int GetSize() const;
 
  private:
+  Building building;
   Snake snake;
   SDL_Point food;
 

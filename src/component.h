@@ -44,7 +44,4 @@ private:
     static int idCounter;
 };
 
-int Component::idCounter = 0;
-std::mutex Component::_mtx;
-
 #endif
