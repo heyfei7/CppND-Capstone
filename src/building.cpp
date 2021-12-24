@@ -1,4 +1,7 @@
 #include "building.h"
+#include <iostream>
+#include <random>
+#include <functional>
 
 Floor::Floor(int number)
     : _floorNumber(number) {}
