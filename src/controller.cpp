@@ -1,5 +1,5 @@
-#include "controller.h"
 #include <iostream>
+#include "controller.h"
 #include "SDL.h"
 #include "runner.h"
 
