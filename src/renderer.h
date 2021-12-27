@@ -2,18 +2,20 @@
 #define RENDERER_H
 
 #include <vector>
+#include <memory>
 #include "SDL.h"
-#include "snake.h"
+
+class Runner;
+class Obstacle;
 
 class Renderer {
  public:
   Renderer(const std::size_t screen_width, const std::size_t screen_height,
-           const std::size_t grid_width, const std::size_t grid_height);
+           const std::size_t cols, const std::size_t rows);
   ~Renderer();
 
-  void Render(Snake const snake, SDL_Point const &food);
-  void Render(const Building &building);
-  void UpdateWindowTitle(int score, int fps);
+  void Render(Runner &runner, std::vector<std::unique_ptr<Obstacle> > &obstacles);
+  void UpdateWindowTitle(const int score, const int fps);
 
  private:
   SDL_Window *sdl_window;
@@ -21,8 +23,8 @@ class Renderer {
 
   const std::size_t screen_width;
   const std::size_t screen_height;
-  const std::size_t grid_width;
-  const std::size_t grid_height;
+  const std::size_t cols;
+  const std::size_t rows;
 };
 
 #endif

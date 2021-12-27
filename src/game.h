@@ -1,33 +1,38 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <random>
+#include <vector>
+#include <memory>
 #include "SDL.h"
-#include "controller.h"
-#include "renderer.h"
-#include "building.h"
-#include "snake.h"
-class Game {
- public:
-  Game(std::size_t grid_width, std::size_t grid_height);
-  void Run(Controller const &controller, Renderer &renderer,
+#include "runner.h"
+#include "obstacle.h"
+#include "utility.h"
+
+class Controller;
+class Renderer;
+
+class Game
+{
+public:
+  Game(std::size_t cols, std::size_t rows);
+  void Run(const Controller &controller, Renderer &renderer,
            std::size_t target_frame_duration);
-  int GetScore() const;
-  int GetSize() const;
+  int  GetScore() const;
+  void ShiftRunner(int delta);
 
- private:
-  Building building;
-  Snake snake;
-  SDL_Point food;
+private:
+  const std::size_t cols, rows;
+  Runner         runner;
 
-  std::random_device dev;
-  std::mt19937 engine;
-  std::uniform_int_distribution<int> random_w;
-  std::uniform_int_distribution<int> random_h;
+  Random<int> random_x;
+  Random<int> random_type;
+  Random<int> random_time;
+  
+  ObstacleVector obstacles;
+  TimeChecker    obTimer;
 
-  int score{0};
-
-  void PlaceFood();
+  void GenerateObstacles();
+  void CleanObstacles();
   void Update();
 };
 
